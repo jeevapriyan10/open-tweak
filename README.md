@@ -175,7 +175,7 @@ Scans DOM → collects violations list
 - Fix history log per site
 - Firefox compatibility
 
-### ⏭Future Scope
+### Future Scope
 - Caption generation for videos
 - Cross-device sync
 - Mobile browser support
