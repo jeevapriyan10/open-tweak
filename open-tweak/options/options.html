@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <title>AccessiMorph — Settings</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 600px; margin: 40px auto; padding: 0 24px; color: #1a1a2e; }
+    h1 { font-size: 22px; margin-bottom: 4px; }
+    p.sub { color: #666; font-size: 13px; margin-bottom: 32px; }
+    h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.6px; color: #888; margin: 24px 0 8px; }
+    .row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; font-size: 14px; }
+    button.save { margin-top: 24px; background: #4A90D9; color: #fff; border: none; padding: 10px 24px; border-radius: 6px; cursor: pointer; font-size: 14px; font-weight: 600; }
+    .saved { color: #22c55e; font-size: 13px; margin-left: 12px; display: none; }
+  </style>
+</head>
+<body>
+  <h1>♿ AccessiMorph Settings</h1>
+  <p class="sub">All fixes run locally. No data is ever sent to any server.</p>
+
+  <h2>Privacy</h2>
+  <div class="row">
+    <span>Save fix history per site</span>
+    <input type="checkbox" id="save-history" checked />
+  </div>
+
+  <h2>Fix Log</h2>
+  <div id="fix-log-list" style="font-size:13px; color:#444; line-height:1.8;">Loading...</div>
+  <button id="clear-log" style="margin-top:8px; font-size:12px; color:#ef4444; background:none; border:1px solid #ef4444; padding:4px 12px; border-radius:4px; cursor:pointer;">Clear All History</button>
+
+  <br/>
+  <button class="save" id="save-btn">Save Settings</button>
+  <span class="saved" id="saved-msg">Saved ✓</span>
+
+  <script src="options.js"></script>
+</body>
+</html>

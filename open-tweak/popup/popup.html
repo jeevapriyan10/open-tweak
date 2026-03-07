@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AccessiMorph</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span class="logo-icon">♿</span>
+      <span class="logo-text">AccessiMorph</span>
+    </div>
+    <div class="badge" id="fix-badge">—</div>
+  </header>
+
+  <section class="fix-summary" id="fix-summary">
+    <p id="fix-message">Scanning...</p>
+    <ul id="fix-list"></ul>
+  </section>
+
+  <section class="profiles">
+    <h2>Visual Profile</h2>
+    <div class="profile-grid" id="profile-grid">
+      <button class="profile-btn" data-profile="none">None</button>
+      <button class="profile-btn" data-profile="color-blind-deuteranopia">Color Blind</button>
+      <button class="profile-btn" data-profile="low-vision">Low Vision</button>
+      <button class="profile-btn" data-profile="dyslexia">Dyslexia</button>
+      <button class="profile-btn" data-profile="deaf">Deaf / HoH</button>
+      <button class="profile-btn" data-profile="focus-mode">Focus Mode</button>
+    </div>
+  </section>
+
+  <footer>
+    <label class="toggle-row" id="disable-toggle-label">
+      <span>Disabled on this site</span>
+      <input type="checkbox" id="disable-toggle" />
+      <span class="toggle-slider"></span>
+    </label>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>
