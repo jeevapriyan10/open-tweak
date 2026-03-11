@@ -2,9 +2,9 @@
 // Reads violations from scanner.js and patches the live DOM.
 // Never modifies server source — browser-only rendering layer.
 
-window.AccessiMorph = window.AccessiMorph || {};
+window.OpenTweak = window.OpenTweak || {};
 
-window.AccessiMorph.fix = function (violations) {
+window.OpenTweak.fix = function (violations) {
   const fixLog = {};
 
   violations.forEach(({ rule, element }) => {
@@ -14,7 +14,6 @@ window.AccessiMorph.fix = function (violations) {
         // ── Fix 1: Inject empty alt (marks as decorative) ──────────────────
         case "missing-alt": {
           element.setAttribute("alt", "");
-          // If img has a title or aria-label use that instead
           const title = element.getAttribute("title");
           if (title) element.setAttribute("alt", title);
           fixLog["missing-alt"] = (fixLog["missing-alt"] || 0) + 1;
@@ -28,7 +27,6 @@ window.AccessiMorph.fix = function (violations) {
             element.getAttribute("name") ||
             element.getAttribute("type") ||
             "Input field";
-          // Capitalise first letter
           element.setAttribute(
             "aria-label",
             hint.charAt(0).toUpperCase() + hint.slice(1)
@@ -39,7 +37,6 @@ window.AccessiMorph.fix = function (violations) {
 
         // ── Fix 3: Inject lang attribute ───────────────────────────────────
         case "missing-lang": {
-          // Best-effort: default to 'en'. User can override in settings.
           element.setAttribute("lang", "en");
           fixLog["missing-lang"] = (fixLog["missing-lang"] || 0) + 1;
           break;
@@ -48,7 +45,6 @@ window.AccessiMorph.fix = function (violations) {
         // ── Fix 4: Add descriptive aria-label to vague links ───────────────
         case "vague-link": {
           const href = element.getAttribute("href") || "";
-          // Use surrounding context: parent text or href path
           const parent = element.closest("p, li, td, article, section");
           const context = parent
             ? parent.textContent.trim().slice(0, 60)
@@ -62,7 +58,6 @@ window.AccessiMorph.fix = function (violations) {
 
         // ── Fix 5: Restore focus indicators ───────────────────────────────
         case "no-focus-indicator": {
-          // Remove the inline outline:none — let injected.css handle the rest
           const style = element.getAttribute("style") || "";
           const cleaned = style
             .replace(/outline\s*:\s*none\s*;?/gi, "")
@@ -75,13 +70,12 @@ window.AccessiMorph.fix = function (violations) {
 
         // ── Fix 6: Inject skip-to-content link ────────────────────────────
         case "missing-skip-link": {
-          // Only inject once
-          if (!document.getElementById("accessimorph-skip-link")) {
+          if (!document.getElementById("opentweak-skip-link")) {
             const skip = document.createElement("a");
-            skip.id = "accessimorph-skip-link";
+            skip.id = "opentweak-skip-link";
             skip.href = "#main";
             skip.textContent = "Skip to main content";
-            skip.className = "accessimorph-skip-link";
+            skip.className = "opentweak-skip-link";
             document.body.prepend(skip);
             fixLog["missing-skip-link"] = 1;
           }
@@ -94,10 +88,23 @@ window.AccessiMorph.fix = function (violations) {
           fixLog["small-font"] = (fixLog["small-font"] || 0) + 1;
           break;
         }
+
+        // ── Fix 8: Boost low contrast text to meet 4.5:1 ─────────────────
+        case "low-contrast": {
+          const bg = window.getComputedStyle(element).backgroundColor;
+          const rgb = window.OpenTweak.parseRGB(bg);
+          if (rgb) {
+            const luminance = window.OpenTweak.relativeLuminance(rgb);
+            element.style.color = luminance > 0.5 ? "#111111" : "#f5f5f5";
+          }
+          fixLog["low-contrast"] = (fixLog["low-contrast"] || 0) + 1;
+          break;
+        }
+
       }
     } catch (err) {
       // Never crash the page
-      console.warn("[AccessiMorph] Fix failed for rule:", rule, err);
+      console.warn("[OpenTweak] Fix failed for rule:", rule, err);
     }
   });
 

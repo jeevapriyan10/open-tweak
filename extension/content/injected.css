@@ -1,5 +1,5 @@
 /* content/injected.css */
-/* AccessiMorph — base CSS injected into every page */
+/* Open Tweak — base CSS injected into every page */
 
 /* ── Focus indicators (restores what many sites strip out) ──────────────── */
 a:focus,
@@ -13,8 +13,8 @@ textarea:focus,
 }
 
 /* ── Skip to content link ────────────────────────────────────────────────── */
-.accessimorph-skip-link,
-#accessimorph-skip-link {
+.opentweak-skip-link,
+#opentweak-skip-link {
   position: absolute !important;
   top: -100px !important;
   left: 0 !important;
@@ -29,7 +29,7 @@ textarea:focus,
   transition: top 0.2s ease !important;
 }
 
-.accessimorph-skip-link:focus,
-#accessimorph-skip-link:focus {
+.opentweak-skip-link:focus,
+#opentweak-skip-link:focus {
   top: 0 !important;
 }
